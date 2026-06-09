@@ -5,18 +5,23 @@ const RegistrationContext = createContext(undefined);
 export const RegistrationProvider = ({ children }) => {
   const [step, setStep] = useState(1);
   const [registrationData, setRegistrationData] = useState({
-    role: 'groom',
+    role: '',
     profileFor: '',
     gender: '',
-    firstName: '',
-    lastName: '',
-    dateOfBirth: '',
+    candidateFirstName: '',
+    candidateLastName: '',
+    candidateDOB: '',
+    candidateEmail: '',
+    candidatePhoneCode: '+91',
+    candidatePhone: '',
     country: '',
     state: '',
     pinCode: '',
     email: '',
-    countryCode: '+91',
-    phoneNumber: ''
+    guardianFirstName: '',
+    guardianLastName: '',
+    guardianPhoneCode: '+91',
+    guardianPhone: ''
   });
 
   const nextStep = () => setStep((s) => s + 1);

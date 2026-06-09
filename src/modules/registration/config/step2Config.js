@@ -1,9 +1,11 @@
 import { Users as UsersIcon, ShieldCheck, Gem, Headphones } from 'lucide-react';
 
-export const step2Hero = {
+export const getStep2Hero = (isManaged, role = 'candidate') => {
+  const roleCap = role.charAt(0).toUpperCase() + role.slice(1);
+  return {
   eyebrow: "Let's Begin",
-  titleLines: ["Create Your", "Profile"],
-  description: "Tell us about yourself.",
+  titleLines: isManaged ? [roleCap, "Details"] : ["Create Your", "Profile"],
+  description: isManaged ? `Tell us about the ${role}.` : "Tell us about yourself.",
   buttonText: "CREATE YOUR PROFILE",
   verifiedText: "100% VERIFIED PROFILES",
   verifiedSubText: "SAFE & SECURE",
@@ -13,28 +15,29 @@ export const step2Hero = {
     { id: '3', title: "Premium Matches", subtitle: "Curated for you", icon: Gem },
     { id: '4', title: "Personal Support", subtitle: "At every step", icon: Headphones }
   ]
+  };
 };
 
-export const step2Questions = [
+export const getStep2Questions = (isManaged) => [
   {
-    id: "firstName",
+    id: "candidateFirstName",
     title: "First Name",
     type: "input",
-    placeholder: "Enter your first name",
+    placeholder: "Enter first name",
     required: true
   },
   {
-    id: "lastName",
+    id: "candidateLastName",
     title: "Last Name",
     type: "input",
-    placeholder: "Enter your last name",
+    placeholder: "Enter last name",
     required: true
   },
   {
-    id: "dateOfBirth",
+    id: "candidateDOB",
     title: "Date of Birth",
     type: "datePicker",
-    placeholder: "Select your date of birth",
+    placeholder: "Select date of birth",
     required: true
   }
 ];

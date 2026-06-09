@@ -1,9 +1,11 @@
 import { Users as UsersIcon, ShieldCheck, Gem, Headphones } from 'lucide-react';
 
-export const step3Hero = {
+export const getStep3Hero = (isManaged, role = 'candidate') => {
+  const roleCap = role.charAt(0).toUpperCase() + role.slice(1);
+  return {
   eyebrow: "Let's Continue",
   titleLines: ["Your Perfect", "Match Starts Here"],
-  description: "Tell us where you live so we can personalize your experience.",
+  description: isManaged ? `Tell us where the ${role} lives.` : "Tell us where you live so we can personalize your experience.",
   buttonText: "CREATE YOUR PROFILE",
   verifiedText: "100% VERIFIED PROFILES",
   verifiedSubText: "SAFE & SECURE",
@@ -13,9 +15,10 @@ export const step3Hero = {
     { id: '3', title: "Premium Matches", subtitle: "Curated for you", icon: Gem },
     { id: '4', title: "Personal Support", subtitle: "At every step", icon: Headphones }
   ]
+  };
 };
 
-export const step3Questions = [
+export const getStep3Questions = (isManaged, role = 'candidate') => [
   {
     id: "country",
     title: "Country",

@@ -27,10 +27,11 @@ export const QuestionRenderer = ({
 
   if (questions) {
     const isStepValid = questions.every(q => {
+      if (q.type === 'sectionTitle') return true;
       if (!q.required) return true;
       
       if (q.type === 'phone') {
-        const phoneVal = registrationData.phoneNumber;
+        const phoneVal = registrationData[q.id];
         if (!phoneVal || phoneVal.length < 5) return false;
         return true;
       }
@@ -51,19 +52,38 @@ export const QuestionRenderer = ({
     };
 
     return (
-      <div className="flex flex-col items-center lg:items-start justify-start w-full mt-0">
+      <div className="flex flex-col items-center lg:items-start justify-start w-full h-full mt-0">
         <QuestionBlock 
           titleHighlight={titleHighlight} 
           titleRest={titleRest}
-          hideDivider={true}
         >
-          <div className="flex flex-col w-full text-center lg:text-left gap-[clamp(0.8rem,2vh,1.5rem)] mt-[clamp(0.5rem,1vh,1rem)] px-2 lg:px-0">
-            {questions.map((q, idx) => {
+          <div className="w-full flex-1 min-h-0 overflow-hidden pr-2 flex flex-col justify-start">
+            <div className={`flex flex-col w-full text-center lg:text-left justify-center lg:justify-start px-1 lg:px-0 ${showValidation && !isStepValid ? 'gap-[clamp(0.1rem,min(0.5vh,0.5vw),0.5rem)] mt-0 mb-0' : 'gap-[clamp(0.2rem,min(1.5vh,1vw),2rem)] mt-[clamp(0.2rem,min(1vh,0.5vw),1rem)] mb-[clamp(0.2rem,min(1vh,0.5vw),1rem)]'}`}>
+              {questions.map((q, idx) => {
+              if (q.type === 'sectionTitle') {
+                return (
+                  <motion.div 
+                    key={q.id}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: idx * 0.1 }}
+                    className={`w-full max-w-[clamp(280px,80%,400px)] lg:max-w-[450px] mx-auto lg:mx-0 ${idx > 0 ? 'mt-[clamp(0.4rem,min(1.5vh,1vw),1.5rem)]' : ''}`}
+                  >
+                    <h4 className="flex items-center justify-start gap-1.5 w-full mb-1">
+                      <span className="font-serif text-[clamp(1.05rem,min(1.8vw,2vh),1.4rem)] font-medium text-luxury-navy">{q.title}</span>
+                      {q.subtitle && <span className="font-serif text-[clamp(0.85rem,1.3vw,1.05rem)] text-luxury-charcoal/70 font-normal">{q.subtitle}</span>}
+                      {q.required && <span className="text-red-400 text-[clamp(0.8rem,1.5vw,1.05rem)] ml-1">*</span>}
+                    </h4>
+                    <div className="w-full h-[1px] bg-gradient-to-r from-luxury-gold/40 to-transparent" />
+                  </motion.div>
+                );
+              }
+
               let val = '';
               let isError = false;
 
               if (q.type === 'phone') {
-                val = registrationData.phoneNumber || '';
+                val = registrationData[q.id] || '';
                 if (showValidation && q.required) {
                   if (!val || val.length < 5) isError = true;
                 }
@@ -96,19 +116,19 @@ export const QuestionRenderer = ({
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: idx * 0.1 }}
-                    className="w-full max-w-[clamp(280px,80%,400px)] lg:max-w-md mx-auto lg:mx-0"
+                    className="w-full max-w-[clamp(280px,80%,400px)] lg:max-w-[clamp(450px,75%,700px)] mx-auto lg:mx-0"
                   >
                     <PhoneInput 
                       label={q.title}
                       placeholder={q.placeholder}
-                      countryCodeValue={registrationData.countryCode}
-                      phoneNumberValue={registrationData.phoneNumber}
+                      countryCodeValue={registrationData[`${q.id}Code`] || '+91'}
+                      phoneNumberValue={registrationData[q.id]}
                       onCountryCodeChange={(val) => {
-                        updateField('countryCode', val);
+                        updateField(`${q.id}Code`, val);
                         setShowValidation(false);
                       }}
                       onPhoneNumberChange={(val) => {
-                        updateField('phoneNumber', val);
+                        updateField(q.id, val);
                         setShowValidation(false);
                       }}
                       error={isError ? 'This field is required' : undefined}
@@ -123,7 +143,7 @@ export const QuestionRenderer = ({
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: idx * 0.1 }}
-                  className="w-full max-w-[clamp(280px,80%,400px)] lg:max-w-md mx-auto lg:mx-0"
+                  className="w-full max-w-[clamp(280px,80%,400px)] lg:max-w-[clamp(450px,75%,700px)] mx-auto lg:mx-0"
                 >
                   {q.type === 'input' && <Input type={q.inputType || 'text'} {...commonProps} />}
                   {q.type === 'select' && <Select {...commonProps} />}
@@ -133,22 +153,11 @@ export const QuestionRenderer = ({
             })}
           </div>
 
-          {/* Validation error message */}
-          {showValidation && !isStepValid && (
-            <motion.div 
-              initial={{ opacity: 0, y: -5 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="mt-3 text-[#d32f2f] font-sans text-[clamp(11px,1.2vw,14px)] flex items-center justify-center lg:justify-start gap-1.5 w-full px-2 lg:px-0 font-medium"
-            >
-              <span>⚠️</span>
-              <span>Please fill in all required fields to continue.</span>
-            </motion.div>
-          )}
-
-          <div className="w-full flex justify-center lg:justify-start mt-[clamp(1rem,2vh,1.5rem)]">
-            <StepNavigation onNext={handleNext} onPrev={onPrev} />
-          </div>
-        </QuestionBlock>
+        </div>
+        <div className="w-full shrink-0 flex justify-center lg:justify-start mt-auto pt-[clamp(0.5rem,min(2vh,2vw),1.5rem)] pb-2">
+          <StepNavigation onNext={handleNext} onPrev={onPrev} />
+        </div>
+      </QuestionBlock>
       </div>
     );
   }
@@ -179,50 +188,50 @@ export const QuestionRenderer = ({
   };
 
   return (
-    <div className="flex flex-col items-center lg:items-start justify-start w-full mt-0">
+    <div className="flex flex-col items-start justify-start w-full h-full mt-0">
       <QuestionBlock 
         titleHighlight="Looking" 
         titleRest="for?"
         hideDivider={true}
       >
-        <div className="w-full mt-[-clamp(0.2rem,0.5vh,0.5rem)]">
-          <CardSelector selectedRole={selectedRole} onSelectRole={handleSelectRole} />
-        </div>
-        
-        <div className="w-full text-center lg:text-left flex flex-col items-center lg:items-start mt-[clamp(0.2rem,0.8vh,0.6rem)]">
-          <h4 className="flex items-center justify-center lg:justify-start gap-1.5 mb-[clamp(0.2rem,0.6vh,0.4rem)] w-full">
-            <span className="font-cursive text-[clamp(1.1rem,2vw,1.4rem)] text-[#B58E3A] font-normal">Who</span>
-            <span className="font-serif text-[clamp(0.8rem,1.5vw,1.05rem)] text-luxury-navy">is this profile for?</span>
-          </h4>
-          <div className="flex flex-row flex-wrap justify-center lg:justify-start gap-1.5 sm:gap-2.5 w-full px-2 lg:px-0">
-            {currentOptions.map((item) => (
-              <Chip 
-                key={item.id}
-                label={item.label}
-                icon={item.icon}
-                active={profileFor === item.id}
-                onClick={() => {
-                  updateField('profileFor', item.id);
-                  setShowValidation(false);
-                }}
-              />
-            ))}
+        <div className="w-full flex-1 min-h-0 overflow-hidden pr-2 flex flex-col justify-start">
+          <div className="w-full">
+            <CardSelector selectedRole={selectedRole} onSelectRole={handleSelectRole} />
           </div>
-        </div>
+          
+          <div className={`w-full text-left flex flex-col items-start ${showValidation && (!profileFor || !gender || isInvalid) ? 'mt-[clamp(0.1rem,min(0.5vh,0.5vw),0.5rem)]' : 'mt-[clamp(0.2rem,min(1.5vh,1vw),1.5rem)]'}`}>
+            <h4 className="flex items-center justify-start gap-1.5 mb-[clamp(0.5rem,1vh,0.8rem)] w-full">
+              <span className="font-cursive text-[clamp(1.6rem,min(2.8vw,3vh),2.2rem)] text-[#B58E3A] font-normal">Who</span>
+              <span className="font-serif text-[clamp(0.85rem,1.4vw,1.1rem)] text-luxury-navy">is this profile for?</span>
+            </h4>
+            <div className="flex flex-row flex-wrap justify-start gap-1.5 sm:gap-2.5 w-full px-0">
+              {currentOptions.map((item) => (
+                <Chip 
+                  key={item.id}
+                  label={item.label}
+                  icon={item.icon}
+                  active={profileFor === item.id}
+                  onClick={() => {
+                    updateField('profileFor', item.id);
+                    setShowValidation(false);
+                  }}
+                />
+              ))}
+            </div>
+          </div>
 
-        {profileFor && (
           <motion.div 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="w-full text-center lg:text-left flex flex-col items-center lg:items-start mt-[clamp(0.4rem,1.2vh,0.8rem)]"
+            className={`w-full text-left flex flex-col items-start ${showValidation && (!profileFor || !gender || isInvalid) ? 'mt-[clamp(0.1rem,min(0.5vh,0.5vw),0.5rem)]' : 'mt-[clamp(0.2rem,min(1.5vh,1vw),1.5rem)]'}`}
           >
-            <h4 className="flex items-center justify-center lg:justify-start gap-1.5 mb-[clamp(0.2rem,0.6vh,0.4rem)] w-full">
-              <span className="font-cursive text-[clamp(1.1rem,2vw,1.4rem)] text-[#B58E3A] font-normal">What's</span>
-              <span className="font-serif text-[clamp(0.8rem,1.5vw,1.05rem)] text-luxury-navy">
+            <h4 className="flex items-center justify-start gap-1.5 mb-[clamp(0.5rem,1vh,0.8rem)] w-full">
+              <span className="font-cursive text-[clamp(1.6rem,min(2.8vw,3vh),2.2rem)] text-[#B58E3A] font-normal">What's</span>
+              <span className="font-serif text-[clamp(0.85rem,1.4vw,1.1rem)] text-luxury-navy">
                 {profileFor === 'myself' ? 'your gender?' : "the candidate's gender?"}
               </span>
             </h4>
-            <div className="flex flex-row justify-center lg:justify-start gap-3 w-full px-2 lg:px-0">
+            <div className="flex flex-row justify-start gap-3 w-full px-0">
               {genderOptions.map((item) => (
                 <Chip 
                   key={item.id}
@@ -237,26 +246,26 @@ export const QuestionRenderer = ({
               ))}
             </div>
           </motion.div>
-        )}
 
-        {showValidation && (
-          <motion.div 
-            initial={{ opacity: 0, y: -5 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mt-3 text-[#d32f2f] font-sans text-[clamp(11px,1.2vw,14px)] flex items-center justify-center lg:justify-start gap-1.5 w-full px-2 lg:px-0 font-medium"
-          >
-            <span>⚠️</span>
-            <span>
-              {(!profileFor || !gender) 
-                ? "Please answer all questions before proceeding." 
-                : (selectedRole === 'groom' 
-                  ? "Candidate's gender cannot be Male when selecting Groom." 
-                  : "Candidate's gender cannot be Female when selecting Bride.")}
-            </span>
-          </motion.div>
-        )}
-        
-        <div className="w-full flex justify-center lg:justify-start mt-[clamp(0.4rem,1.2vh,0.8rem)]">
+          {showValidation && (!profileFor || !gender || isInvalid) && (
+            <motion.div 
+              initial={{ opacity: 0, y: -5 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mt-1 text-[#d32f2f] font-sans text-[clamp(11px,1.2vw,14px)] flex items-center justify-center lg:justify-start gap-1.5 w-full px-2 lg:px-0 font-medium"
+            >
+              <span>⚠️</span>
+              <span>
+                {(!profileFor || !gender) 
+                  ? "Please select all the fields before proceeding." 
+                  : (selectedRole === 'groom' 
+                    ? "Candidate's gender cannot be Male when selecting Groom." 
+                    : "Candidate's gender cannot be Female when selecting Bride.")}
+              </span>
+            </motion.div>
+          )}
+          
+        </div>
+        <div className="w-full shrink-0 flex justify-center lg:justify-start mt-auto pt-[clamp(0.5rem,min(2vh,2vw),1.5rem)] pb-2">
           <StepNavigation onNext={handleNext} onPrev={onPrev} />
         </div>
       </QuestionBlock>

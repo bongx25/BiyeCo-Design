@@ -7,7 +7,7 @@ import flowerBg from '../../../assets/images/backgrounds/flower.png';
 export const RegistrationShell = ({ children }) => {
   return (
     <div
-      className="w-full h-[100dvh] flex flex-col items-center justify-center overflow-hidden p-2 sm:p-2 md:p-3 lg:p-4 xl:p-4 2xl:p-5"
+      className="w-full h-[100dvh] flex flex-col items-center justify-center overflow-hidden pl-[clamp(12px,min(2vw,2vh),24px)] pr-[clamp(0px,min(0.5vw,0.5vh),8px)] py-[clamp(8px,min(2vw,2vh),24px)] select-none"
       style={{
         backgroundImage: `url(${mainBg})`,
         backgroundSize: 'cover',
@@ -36,8 +36,8 @@ export const RegistrationShell = ({ children }) => {
         <div className="flex-1 flex flex-col px-[6%] sm:px-[8%] pt-[3dvh] pb-[2dvh] lg:pb-[3dvh] min-h-0 relative z-10">
 
           {/* Internal Content Area perfectly clipped to the inside of the frame design */}
-          <div className="flex-1 overflow-hidden w-full min-h-0 rounded-xl">
-            <div className="flex flex-col min-h-full px-6 sm:px-10 lg:px-16 max-w-[1400px] mx-auto">
+          <div className="flex-1 flex flex-col overflow-hidden w-full min-h-0 rounded-xl">
+            <div className="flex flex-col h-full flex-1 min-h-0 w-full p-0">
               {children}
             </div>
           </div>

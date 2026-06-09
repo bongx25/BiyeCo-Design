@@ -15,15 +15,15 @@ export const Input = ({
   ...props
 }) => {
   return (
-    <div className={cn("flex flex-col gap-2 text-left w-full", className)}>
+    <div className={cn("flex flex-col gap-[clamp(4px,min(0.8vh,0.8vw),10px)] text-left w-full", className)}>
       {label && (
-        <label className="font-serif text-luxury-navy text-[clamp(14px,1.2vw,16px)] ml-1">
+        <label className="font-serif text-luxury-navy text-[clamp(0.75rem,1.2vw,1.0rem)] font-normal">
           {label}
         </label>
       )}
       <div 
         className={cn(
-          "relative flex items-center bg-[#FDFCFB] rounded-[14px] px-4 py-3.5 border transition-all duration-200",
+          "relative flex items-center bg-[#FDFCFB] rounded-[clamp(8px,min(1vw,1vh),14px)] px-[clamp(0.8rem,min(1.8vw,2.5vh),1.5rem)] py-[clamp(0.4rem,min(1.5vh,1.5vw),1.2rem)] border transition-all duration-200",
           error ? "border-red-400/80" : "border-[#CBA557] focus-within:border-[#967634]",
           disabled && "opacity-60 cursor-not-allowed bg-gray-50"
         )}
@@ -40,7 +40,7 @@ export const Input = ({
           value={value}
           onChange={onChange}
           disabled={disabled}
-          className="bg-transparent border-none outline-none flex-1 text-[#333] font-sans text-[15px] placeholder:text-[#888]"
+          className="bg-transparent border-none outline-none flex-1 text-[#333] font-sans text-[clamp(15px,min(1.8vw,2vh),18px)] placeholder:text-[#888]"
           {...props}
         />
       </div>

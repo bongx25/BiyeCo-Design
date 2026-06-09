@@ -12,6 +12,12 @@
     @apply m-0 p-0 font-sans;
     background-color: #f7f3ed;
   }
+  
+  /* Hide default browser password reveal button */
+  input::-ms-reveal,
+  input::-ms-clear {
+    display: none;
+  }
 }
 
 @layer utilities {

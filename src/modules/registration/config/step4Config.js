@@ -1,9 +1,9 @@
 import { Users as UsersIcon, ShieldCheck, Gem, Headphones } from 'lucide-react';
 
 export const step4Hero = {
-  eyebrow: "Stay Connected",
-  titleLines: ["How Can We", "Reach You?"],
-  description: "Your contact details help us keep your profile secure and updated.",
+  eyebrow: "Family Details",
+  titleLines: ["Tell Us About", "Yourself"],
+  description: "This information belongs to the family member creating the account.",
   buttonText: "CREATE YOUR PROFILE",
   verifiedText: "100% VERIFIED PROFILES",
   verifiedSubText: "SAFE & SECURE",
@@ -17,18 +17,17 @@ export const step4Hero = {
 
 export const step4Questions = [
   {
-    id: "email",
-    title: "Your Email",
+    id: "guardianFirstName",
+    title: "First Name",
     type: "input",
-    inputType: "email",
-    placeholder: "Enter your email address",
+    placeholder: "Enter your first name",
     required: true
   },
   {
-    id: "phone",
-    title: "Your Mobile Number",
-    type: "phone",
-    placeholder: "Enter mobile number",
+    id: "guardianLastName",
+    title: "Last Name",
+    type: "input",
+    placeholder: "Enter your last name",
     required: true
   }
 ];

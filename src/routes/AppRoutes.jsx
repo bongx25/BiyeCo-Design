@@ -5,16 +5,42 @@ import { Step1 } from '../modules/registration/pages/Step01/Step01';
 import { Step2 } from '../modules/registration/pages/Step02/Step02';
 import { Step3 } from '../modules/registration/pages/Step03/Step03';
 import { Step4 } from '../modules/registration/pages/Step04/Step04';
+import { Step5 } from '../modules/registration/pages/Step05/Step05';
+import { Step6 } from '../modules/registration/pages/Step06/Step06';
+import { Step7 } from '../modules/registration/pages/Step07/Step07';
+import { STEP_IDS, getActiveFlow } from '../modules/registration/config/flowConfig';
 
 export function RegistrationFlow() {
-  const { step, nextStep, prevStep } = useRegistrationStore();
+  const { step, nextStep, prevStep, registrationData } = useRegistrationStore();
+  
+  const isManaged = registrationData.profileFor && registrationData.profileFor !== 'myself';
+  const activeFlow = getActiveFlow(registrationData.profileFor);
+  const currentStepId = activeFlow[step - 1];
+
+  const renderStep = () => {
+    switch (currentStepId) {
+      case STEP_IDS.PROFILE_SELECTION:
+        return <Step1 onNext={nextStep} />;
+      case STEP_IDS.CANDIDATE_DETAILS:
+        return <Step2 onPrev={prevStep} onNext={nextStep} isManaged={isManaged} />;
+      case STEP_IDS.LOCATION:
+        return <Step3 onPrev={prevStep} onNext={nextStep} isManaged={isManaged} />;
+      case STEP_IDS.PARENT_DETAILS:
+        return <Step4 onPrev={prevStep} onNext={nextStep} />;
+      case STEP_IDS.CONTACT_DETAILS:
+        return <Step5 onPrev={prevStep} onNext={nextStep} isManaged={isManaged} />;
+      case STEP_IDS.CREATE_PASSWORD:
+        return <Step6 onPrev={prevStep} onNext={nextStep} />;
+      case STEP_IDS.EDUCATION_CAREER:
+        return <Step7 onPrev={prevStep} onNext={nextStep} />;
+      default:
+        return null;
+    }
+  };
 
   return (
     <RegistrationShell>
-      {step === 1 && <Step1 onNext={nextStep} />}
-      {step === 2 && <Step2 onPrev={prevStep} onNext={nextStep} />}
-      {step === 3 && <Step3 onPrev={prevStep} onNext={nextStep} />}
-      {step === 4 && <Step4 onPrev={prevStep} onNext={nextStep} />}
+      {renderStep()}
     </RegistrationShell>
   );
 }
