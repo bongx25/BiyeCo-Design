@@ -14,23 +14,25 @@ export const OTPModal = ({
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [timeLeft, setTimeLeft] = useState(90); // 1:30 in seconds
   const [isVerifying, setIsVerifying] = useState(false);
+  const [isVerified, setIsVerified] = useState(false);
   const inputRefs = useRef([]);
 
   useEffect(() => {
     let timer;
-    if (isOpen && timeLeft > 0) {
+    if (isOpen && timeLeft > 0 && !isVerified) {
       timer = setInterval(() => {
         setTimeLeft((prev) => prev - 1);
       }, 1000);
     }
     return () => clearInterval(timer);
-  }, [isOpen, timeLeft]);
+  }, [isOpen, timeLeft, isVerified]);
 
   useEffect(() => {
     if (isOpen) {
       setOtp(['', '', '', '', '', '']);
       setTimeLeft(90);
       setIsVerifying(false);
+      setIsVerified(false);
       // Auto-focus first input
       setTimeout(() => {
         if (inputRefs.current[0]) {
@@ -90,7 +92,11 @@ export const OTPModal = ({
       setIsVerifying(false);
       const otpString = otp.join('');
       if (otpString === '123456') {
-        onVerify(true);
+        setIsVerified(true);
+        // Wait 1.5s to show the success message before advancing
+        setTimeout(() => {
+          onVerify(true);
+        }, 800);
       } else {
         // Optional error handling for incorrect OTP
         onVerify(false);
@@ -133,64 +139,85 @@ export const OTPModal = ({
               <X className="w-5 h-5" />
             </button>
 
-            <div className="flex flex-col items-center text-center mt-2">
-              <div className="w-16 h-16 rounded-full bg-luxury-ivory border border-luxury-gold/30 flex items-center justify-center mb-6 shadow-sm">
-                <CheckCircle2 className="w-8 h-8 text-luxury-gold" />
+            {isVerified ? (
+              <div className="flex flex-col items-center justify-center text-center my-8">
+                <motion.div 
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: "spring", bounce: 0.5, duration: 0.6 }}
+                  className="w-20 h-20 rounded-full bg-green-50 flex items-center justify-center mb-6"
+                >
+                  <CheckCircle2 className="w-10 h-10 text-green-500" />
+                </motion.div>
+                <motion.h3 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                  className="font-serif text-2xl font-semibold text-luxury-navy mb-2"
+                >
+                  OTP Verified Successfully
+                </motion.h3>
               </div>
-              
-              <h3 className="font-serif text-2xl font-semibold text-luxury-navy mb-2">
-                Verify Your {method === 'email' ? 'Email' : 'WhatsApp'}
-              </h3>
-              
-              <p className="font-sans text-luxury-charcoal/80 text-sm mb-1">
-                Enter the 6-digit verification code sent to your {method === 'email' ? 'email address' : 'WhatsApp number'}.
-              </p>
-              
-              <p className="font-sans font-medium text-luxury-navy text-sm mb-8">
-                {contactInfo}
-              </p>
+            ) : (
+              <div className="flex flex-col items-center text-center mt-2">
+                <div className="w-16 h-16 rounded-full bg-luxury-ivory border border-luxury-gold/30 flex items-center justify-center mb-6 shadow-sm">
+                  <CheckCircle2 className="w-8 h-8 text-luxury-gold" />
+                </div>
+                
+                <h3 className="font-serif text-2xl font-semibold text-luxury-navy mb-2">
+                  Verify Your {method === 'email' ? 'Email' : 'WhatsApp'}
+                </h3>
+                
+                <p className="font-sans text-luxury-charcoal/80 text-sm mb-1">
+                  Enter the 6-digit verification code sent to your {method === 'email' ? 'email address' : 'WhatsApp number'}.
+                </p>
+                
+                <p className="font-sans font-medium text-luxury-navy text-sm mb-8">
+                  {contactInfo}
+                </p>
 
-              <div className="flex justify-center gap-2 mb-8 w-full">
-                {otp.map((digit, index) => (
-                  <input
-                    key={index}
-                    ref={(el) => (inputRefs.current[index] = el)}
-                    type="text"
-                    inputMode="numeric"
-                    value={digit}
-                    onChange={(e) => handleChange(index, e)}
-                    onKeyDown={(e) => handleKeyDown(index, e)}
-                    onPaste={handlePaste}
-                    className="w-[45px] h-[55px] sm:w-[50px] sm:h-[60px] text-center font-sans text-2xl font-semibold text-luxury-navy bg-white border border-[#CBA557]/40 rounded-xl focus:border-[#CBA557] focus:ring-1 focus:ring-[#CBA557] outline-none transition-all shadow-sm"
-                    maxLength={1}
-                  />
-                ))}
+                <div className="flex justify-center gap-2 mb-8 w-full">
+                  {otp.map((digit, index) => (
+                    <input
+                      key={index}
+                      ref={(el) => (inputRefs.current[index] = el)}
+                      type="text"
+                      inputMode="numeric"
+                      value={digit}
+                      onChange={(e) => handleChange(index, e)}
+                      onKeyDown={(e) => handleKeyDown(index, e)}
+                      onPaste={handlePaste}
+                      className="w-[45px] h-[55px] sm:w-[50px] sm:h-[60px] text-center font-sans text-2xl font-semibold text-luxury-navy bg-white border border-[#CBA557]/40 rounded-xl focus:border-[#CBA557] focus:ring-1 focus:ring-[#CBA557] outline-none transition-all shadow-sm"
+                      maxLength={1}
+                    />
+                  ))}
+                </div>
+
+                <Button 
+                  onClick={handleVerify}
+                  disabled={!isFull || isVerifying}
+                  className="w-full mb-6 py-3.5"
+                >
+                  {isVerifying ? "Verifying..." : "Verify Code"}
+                </Button>
+
+                <div className="font-sans text-sm text-luxury-charcoal/80">
+                  Didn't receive the code?{" "}
+                  {timeLeft > 0 ? (
+                    <span className="text-luxury-navy font-medium">
+                      Resend in {formatTime(timeLeft)}
+                    </span>
+                  ) : (
+                    <button 
+                      onClick={handleResend}
+                      className="text-[#CBA557] font-semibold hover:underline"
+                    >
+                      Resend Code
+                    </button>
+                  )}
+                </div>
               </div>
-
-              <Button 
-                onClick={handleVerify}
-                disabled={!isFull || isVerifying}
-                className="w-full mb-6 py-3.5"
-              >
-                {isVerifying ? "Verifying..." : "Verify Code"}
-              </Button>
-
-              <div className="font-sans text-sm text-luxury-charcoal/80">
-                Didn't receive the code?{" "}
-                {timeLeft > 0 ? (
-                  <span className="text-luxury-navy font-medium">
-                    Resend in {formatTime(timeLeft)}
-                  </span>
-                ) : (
-                  <button 
-                    onClick={handleResend}
-                    className="text-[#CBA557] font-semibold hover:underline"
-                  >
-                    Resend Code
-                  </button>
-                )}
-              </div>
-            </div>
+            )}
           </motion.div>
         </div>
       )}

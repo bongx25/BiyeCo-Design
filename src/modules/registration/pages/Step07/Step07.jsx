@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Header } from '../../components/Header';
 import { HeroSection } from '../../components/HeroSection';
@@ -6,22 +6,32 @@ import { LeftSection } from '../../components/LeftSection';
 import { RightSection } from '../../components/RightSection';
 import { StepNavigation } from '../../components/StepNavigation';
 import { SelectCard } from '../../components/SelectCard';
+import { CardDropdownModal } from '../../../../shared/ui/CardDropdownModal';
 import { step7Config } from '../../config/step7Config';
 import { useRegistrationStore } from '../../store/registrationStore';
 import { Button } from '../../../../shared/ui/Button';
 
 export const Step7 = ({ onPrev, onNext }) => {
   const { registrationData, updateField } = useRegistrationStore();
+  const [activeModalId, setActiveModalId] = useState(null);
 
   const isFormValid = step7Config.cards.every(card => registrationData[card.id]);
+
+  // Remove dynamic prefix, use exact text as requested
+  const dynamicHeroConfig = {
+    ...step7Config.hero,
+    titleLines: ["Education", "and Career"]
+  };
+
+  const activeCardConfig = activeModalId ? step7Config.cards.find(c => c.id === activeModalId) : null;
 
   return (
     <>
       <Header />
-      <main className="flex-1 flex flex-col min-h-0 w-full m-0 p-0">
+      <main className="flex-1 flex flex-col min-h-0 w-full m-0 p-0 relative">
         <div className="grid grid-cols-1 lg:grid-cols-[3.8fr_6.2fr] xl:grid-cols-[3.5fr_6.5fr] gap-[clamp(0.5rem,2vw,1.5rem)] items-stretch flex-1 min-h-0 min-w-0 w-full p-0 overflow-hidden">
           <LeftSection>
-            <HeroSection config={step7Config.hero} />
+            <HeroSection config={dynamicHeroConfig} />
           </LeftSection>
           
           <RightSection className="!pl-0 lg:!pl-4 xl:!pl-8">
@@ -35,9 +45,8 @@ export const Step7 = ({ onPrev, onNext }) => {
                       key={card.id}
                       icon={card.icon}
                       title={card.title}
-                      options={card.options}
                       value={registrationData[card.id]}
-                      onChange={(val) => updateField(card.id, val)}
+                      onClick={() => setActiveModalId(card.id)}
                     />
                   ))}
                 </div>
@@ -52,6 +61,20 @@ export const Step7 = ({ onPrev, onNext }) => {
           </RightSection>
         </div>
       </main>
+
+      {/* Dynamic Dropdown Modal */}
+      {activeCardConfig && (
+        <CardDropdownModal
+          isOpen={!!activeModalId}
+          onClose={() => setActiveModalId(null)}
+          icon={activeCardConfig.icon}
+          title={activeCardConfig.title}
+          options={activeCardConfig.options}
+          value={registrationData[activeCardConfig.id]}
+          onChange={(val) => updateField(activeCardConfig.id, val)}
+          placeholder={`Select ${activeCardConfig.title.replace(/\n/g, ' ').toLowerCase()}`}
+        />
+      )}
     </>
   );
 };
