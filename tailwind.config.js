@@ -12,7 +12,7 @@ export default {
           cream: '#f4ede4',
           gold: '#cba052',
           goldLight: '#e5c98d',
-          navy: '#0f172a',
+          navy: '#4A3671',
           charcoal: '#334155',
           champagne: '#f7f2eb'
         }

@@ -145,15 +145,15 @@ export const OTPModal = ({
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ type: "spring", bounce: 0.5, duration: 0.6 }}
-                  className="w-20 h-20 rounded-full bg-green-50 flex items-center justify-center mb-6"
+                  className="w-20 h-20 rounded-full bg-[#4A3671]/5 flex items-center justify-center mb-6"
                 >
-                  <CheckCircle2 className="w-10 h-10 text-green-500" />
+                  <CheckCircle2 className="w-10 h-10 text-[#4A3671]" />
                 </motion.div>
                 <motion.h3 
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
-                  className="font-serif text-2xl font-semibold text-luxury-navy mb-2"
+                  className="font-serif text-2xl font-semibold text-[#4A3671] mb-2"
                 >
                   OTP Verified Successfully
                 </motion.h3>
@@ -164,7 +164,7 @@ export const OTPModal = ({
                   <CheckCircle2 className="w-8 h-8 text-luxury-gold" />
                 </div>
                 
-                <h3 className="font-serif text-2xl font-semibold text-luxury-navy mb-2">
+                <h3 className="font-serif text-2xl font-semibold text-[#4A3671] mb-2">
                   Verify Your {method === 'email' ? 'Email' : 'WhatsApp'}
                 </h3>
                 
@@ -172,7 +172,7 @@ export const OTPModal = ({
                   Enter the 6-digit verification code sent to your {method === 'email' ? 'email address' : 'WhatsApp number'}.
                 </p>
                 
-                <p className="font-sans font-medium text-luxury-navy text-sm mb-8">
+                <p className="font-sans font-medium text-[#4A3671] text-sm mb-8">
                   {contactInfo}
                 </p>
 
@@ -187,7 +187,7 @@ export const OTPModal = ({
                       onChange={(e) => handleChange(index, e)}
                       onKeyDown={(e) => handleKeyDown(index, e)}
                       onPaste={handlePaste}
-                      className="w-[45px] h-[55px] sm:w-[50px] sm:h-[60px] text-center font-sans text-2xl font-semibold text-luxury-navy bg-white border border-[#CBA557]/40 rounded-xl focus:border-[#CBA557] focus:ring-1 focus:ring-[#CBA557] outline-none transition-all shadow-sm"
+                      className="w-[45px] h-[55px] sm:w-[50px] sm:h-[60px] text-center font-sans text-2xl font-semibold text-[#4A3671] bg-white border border-[#CBA557]/40 rounded-xl focus:border-[#CBA557] focus:ring-1 focus:ring-[#CBA557] outline-none transition-all shadow-sm"
                       maxLength={1}
                     />
                   ))}
@@ -204,7 +204,7 @@ export const OTPModal = ({
                 <div className="font-sans text-sm text-luxury-charcoal/80">
                   Didn't receive the code?{" "}
                   {timeLeft > 0 ? (
-                    <span className="text-luxury-navy font-medium">
+                    <span className="text-[#4A3671] font-medium">
                       Resend in {formatTime(timeLeft)}
                     </span>
                   ) : (

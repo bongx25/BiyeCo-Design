@@ -143,8 +143,8 @@ export const Step6 = ({ onPrev, onNext }) => {
                     className={cn(
                       "w-full py-[clamp(0.8rem,min(2vh,1.5vw),1.5rem)] text-[clamp(15px,1.2vw,18px)] flex items-center justify-center gap-3 rounded-xl transition-all duration-200 active:scale-[0.98]",
                       isFormValid && !isVerified
-                        ? "bg-luxury-navy border border-[#CBA557] text-[#FFF5EB] font-serif tracking-tight font-semibold hover:brightness-110 shadow-md hover:shadow-lg"
-                        : "bg-luxury-navy border border-[#CBA557]/40 text-[#FFF5EB]/60 font-serif tracking-tight font-semibold opacity-60 cursor-not-allowed"
+                        ? "bg-[#4A3671] border border-[#CBA557] text-[#FFF5EB] font-serif tracking-tight font-semibold hover:brightness-110 shadow-md hover:shadow-lg"
+                        : "bg-[#4A3671] border border-[#CBA557]/40 text-[#FFF5EB]/60 font-serif tracking-tight font-semibold opacity-60 cursor-not-allowed"
                     )}
                   >
                     <Mail className="w-5 h-5" />
@@ -157,8 +157,8 @@ export const Step6 = ({ onPrev, onNext }) => {
                     className={cn(
                       "w-full py-[clamp(0.8rem,min(2vh,1.5vw),1.5rem)] text-[clamp(15px,1.2vw,18px)] flex items-center justify-center gap-3 rounded-xl transition-all duration-200 active:scale-[0.98]",
                       isFormValid && !isVerified
-                        ? "bg-luxury-navy border border-[#CBA557] text-[#FFF5EB] font-serif tracking-tight font-semibold hover:brightness-110 shadow-md hover:shadow-lg"
-                        : "bg-luxury-navy border border-[#CBA557]/40 text-[#FFF5EB]/60 font-serif tracking-tight font-semibold opacity-60 cursor-not-allowed"
+                        ? "bg-[#4A3671] border border-[#CBA557] text-[#FFF5EB] font-serif tracking-tight font-semibold hover:brightness-110 shadow-md hover:shadow-lg"
+                        : "bg-[#4A3671] border border-[#CBA557]/40 text-[#FFF5EB]/60 font-serif tracking-tight font-semibold opacity-60 cursor-not-allowed"
                     )}
                   >
                     <MessageCircle className="w-5 h-5" />

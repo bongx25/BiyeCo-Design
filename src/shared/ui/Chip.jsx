@@ -23,8 +23,8 @@ export const Chip = ({
         className={cn(
           "w-full h-full group flex items-center justify-center gap-[clamp(0.3rem,min(0.6vw,0.6vh),0.8rem)] px-[clamp(0.6rem,min(1.4vw,2vh),1.4rem)] py-[clamp(0.2rem,min(0.8vh,0.8vw),0.8rem)] rounded-[2rem] font-cormorant text-[clamp(14px,min(1.6vw,1.8vh),18px)] font-semibold tracking-wide transition-all duration-300 cursor-pointer whitespace-nowrap",
           active 
-            ? "bg-luxury-navy text-[#FFF5EB] border border-transparent" 
-            : "bg-[#F5EBE1] border border-[#E8D9C8] hover:bg-luxury-navy hover:border-luxury-navy text-[#1A2639]"
+            ? "bg-[#4A3671] text-[#FFF5EB] border border-transparent" 
+            : "bg-[#F5EBE1] border border-[#E8D9C8] hover:bg-[#4A3671] hover:border-[#4A3671] text-[#4A3671]"
         )}
         onClick={onClick}
         {...props}
@@ -40,7 +40,7 @@ export const Chip = ({
         )}
         <span className={cn(
           "transition-colors",
-          active ? "text-[#FFF5EB]" : "text-[#1A2639] group-hover:text-[#FFF5EB]"
+          active ? "text-[#FFF5EB]" : "text-[#4A3671] group-hover:text-[#FFF5EB]"
         )}>
           {label}
         </span>

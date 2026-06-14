@@ -9,7 +9,8 @@ export const CardDropdownModal = ({
   options = [], 
   value, 
   onChange,
-  placeholder = "Select an option"
+  placeholder = "Select an option",
+  isMulti = false
 }) => {
   const [isListOpen, setIsListOpen] = useState(true);
 
@@ -55,7 +56,7 @@ export const CardDropdownModal = ({
         </div>
 
         {/* Title */}
-        <h2 className="font-serif text-[20px] md:text-[24px] text-[#1A2A3A] font-medium text-center leading-tight mb-1">
+        <h2 className="font-serif text-[20px] md:text-[24px] text-[#4A3671] font-medium text-center leading-tight mb-1">
           {title ? title.replace(/\n/g, ' ') : ""}
         </h2>
 
@@ -90,22 +91,42 @@ export const CardDropdownModal = ({
                 {placeholder}
               </div>
               
-              {options.map((opt) => (
-                <button
-                  key={opt}
-                  onClick={() => {
-                    onChange(opt);
-                    onClose();
-                  }}
-                  className={`w-full text-left px-4 py-2.5 font-sans text-[13px] md:text-[14px] transition-colors ${
-                    value === opt 
-                      ? 'bg-[#CBA557]/15 text-[#A67C00] font-medium' 
-                      : 'text-luxury-charcoal hover:bg-[#CBA557]/10'
-                  }`}
-                >
-                  {opt}
-                </button>
-              ))}
+              {options.map((opt) => {
+                const isSelected = isMulti ? (Array.isArray(value) && value.includes(opt)) : value === opt;
+                return (
+                  <button
+                    key={opt}
+                    onClick={() => {
+                      if (isMulti) {
+                        let newValue = Array.isArray(value) ? [...value] : [];
+                        if (newValue.includes(opt)) {
+                          newValue = newValue.filter(v => v !== opt);
+                        } else {
+                          newValue.push(opt);
+                        }
+                        onChange(newValue);
+                      } else {
+                        onChange(opt);
+                        onClose();
+                      }
+                    }}
+                    className={`w-full text-left px-4 py-2.5 font-sans text-[13px] md:text-[14px] transition-colors flex items-center justify-between ${
+                      isSelected 
+                        ? 'bg-[#CBA557]/15 text-[#A67C00] font-medium' 
+                        : 'text-luxury-charcoal hover:bg-[#CBA557]/10'
+                    }`}
+                  >
+                    <span>{opt}</span>
+                    {isSelected && isMulti && (
+                      <span className="w-4 h-4 rounded-full bg-[#A67C00] flex items-center justify-center shrink-0">
+                        <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
             </div>
           )}
         </div>

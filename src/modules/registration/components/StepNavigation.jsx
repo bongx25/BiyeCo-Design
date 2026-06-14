@@ -47,7 +47,7 @@ export const StepNavigation = ({ onNext, onPrev, hideNext }) => {
           onClick={onNext}
           className="rounded-full p-[2px] bg-gradient-to-br from-[#b8860b] via-[#FFF5EB] to-[#8b6508] drop-shadow-md hover:scale-110 transition-transform cursor-pointer"
         >
-          <button className="w-[clamp(2.5rem,min(4vw,4vh),3.5rem)] h-[clamp(2.5rem,min(4vw,4vh),3.5rem)] rounded-full bg-luxury-navy flex items-center justify-center text-[#D6C5B3] hover:brightness-110 transition-all shadow-inner">
+          <button className="w-[clamp(2.5rem,min(4vw,4vh),3.5rem)] h-[clamp(2.5rem,min(4vw,4vh),3.5rem)] rounded-full bg-[#4A3671] flex items-center justify-center text-[#D6C5B3] hover:brightness-110 transition-all shadow-inner">
             <ArrowRight className="w-[clamp(16px,min(2vw,2.5vh),24px)] h-[clamp(16px,min(2vw,2.5vh),24px)]" />
           </button>
         </div>

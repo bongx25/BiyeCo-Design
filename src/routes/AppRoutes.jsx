@@ -8,6 +8,12 @@ import { Step4 } from '../modules/registration/pages/Step04/Step04';
 import { Step5 } from '../modules/registration/pages/Step05/Step05';
 import { Step6 } from '../modules/registration/pages/Step06/Step06';
 import { Step7 } from '../modules/registration/pages/Step07/Step07';
+import { Step8 } from '../modules/registration/pages/Step08/Step08';
+import { Step9 } from '../modules/registration/pages/Step09/Step09';
+import { Step10 } from '../modules/registration/pages/Step10/Step10';
+import { Step11 } from '../modules/registration/pages/Step11/Step11';
+import { Step12 } from '../modules/registration/pages/Step12/Step12';
+import { Step13 } from '../modules/registration/pages/Step13/Step13';
 import { STEP_IDS, getActiveFlow } from '../modules/registration/config/flowConfig';
 
 export function RegistrationFlow() {
@@ -33,6 +39,18 @@ export function RegistrationFlow() {
         return <Step6 onPrev={prevStep} onNext={nextStep} />;
       case STEP_IDS.EDUCATION_CAREER:
         return <Step7 onPrev={prevStep} onNext={nextStep} />;
+      case STEP_IDS.PERSONAL_DETAILS:
+        return <Step8 onPrev={prevStep} onNext={nextStep} />;
+      case STEP_IDS.LIFESTYLE_INTRO:
+        return <Step9 onPrev={prevStep} onNext={nextStep} />;
+      case STEP_IDS.FAMILY_FUTURE:
+        return <Step10 onPrev={prevStep} onNext={nextStep} />;
+      case STEP_IDS.PARTNER_EDU_CAREER:
+        return <Step11 onPrev={prevStep} onNext={nextStep} />;
+      case STEP_IDS.PARTNER_PHYSICAL:
+        return <Step12 onPrev={prevStep} onNext={nextStep} />;
+      case STEP_IDS.PARTNER_LIFESTYLE:
+        return <Step13 onPrev={prevStep} onNext={nextStep} />;
       default:
         return null;
     }

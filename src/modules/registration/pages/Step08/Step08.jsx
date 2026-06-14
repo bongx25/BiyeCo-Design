@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { ArrowRight } from 'lucide-react';
 import { Header } from '../../components/Header';
 import { HeroSection } from '../../components/HeroSection';
 import { LeftSection } from '../../components/LeftSection';
@@ -7,23 +6,25 @@ import { RightSection } from '../../components/RightSection';
 import { StepNavigation } from '../../components/StepNavigation';
 import { SelectCard } from '../../components/SelectCard';
 import { CardDropdownModal } from '../../../../shared/ui/CardDropdownModal';
-import { step7Config } from '../../config/step7Config';
+import { step8Config } from '../../config/step8Config';
 import { useRegistrationStore } from '../../store/registrationStore';
-import { Button } from '../../../../shared/ui/Button';
 
-export const Step7 = ({ onPrev, onNext }) => {
+export const Step8 = ({ onPrev, onNext }) => {
   const { registrationData, updateField } = useRegistrationStore();
   const [activeModalId, setActiveModalId] = useState(null);
 
-  const isFormValid = step7Config.cards.every(card => registrationData[card.id]);
+  const isFormValid = step8Config.cards.every(card => {
+    const val = registrationData[card.id];
+    if (Array.isArray(val)) return val.length > 0;
+    return !!val;
+  });
 
-  // Remove dynamic prefix, use exact text as requested
   const dynamicHeroConfig = {
-    ...step7Config.hero,
-    titleLines: ["Education", "and Career"]
+    ...step8Config.hero,
+    titleLines: ["Personal", "Details"]
   };
 
-  const activeCardConfig = activeModalId ? step7Config.cards.find(c => c.id === activeModalId) : null;
+  const activeCardConfig = activeModalId ? step8Config.cards.find(c => c.id === activeModalId) : null;
 
   return (
     <>
@@ -40,12 +41,12 @@ export const Step7 = ({ onPrev, onNext }) => {
                 
                 {/* Cards Grid */}
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-[clamp(0.5rem,1.5vw,1rem)] w-full">
-                  {step7Config.cards.map((card) => (
+                  {step8Config.cards.map((card) => (
                     <SelectCard
                       key={card.id}
                       icon={card.icon}
                       title={card.title}
-                      value={registrationData[card.id]}
+                      value={Array.isArray(registrationData[card.id]) ? registrationData[card.id].join(', ') : registrationData[card.id]}
                       onClick={() => setActiveModalId(card.id)}
                     />
                   ))}
@@ -73,6 +74,7 @@ export const Step7 = ({ onPrev, onNext }) => {
           value={registrationData[activeCardConfig.id]}
           onChange={(val) => updateField(activeCardConfig.id, val)}
           placeholder={`Select ${activeCardConfig.title.replace(/\n/g, ' ').toLowerCase()}`}
+          isMulti={activeCardConfig.isMulti}
         />
       )}
     </>
