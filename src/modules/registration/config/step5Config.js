@@ -62,22 +62,22 @@ export const getStep5Questions = (isManaged, role = 'candidate') => {
     {
       id: "section_candidate",
       type: "sectionTitle",
-      title: `${roleCap} Contact Details`,
+      title: `${roleCap}'s Contact Details`,
       subtitle: "(Optional)"
     },
     {
       id: "candidateEmail",
-      title: `${roleCap} Email`,
+      title: `${roleCap}'s Email`,
       type: "input",
       inputType: "email",
-      placeholder: `Enter ${role} email`,
+      placeholder: `Enter ${role}'s email`,
       required: false
     },
     {
       id: "candidatePhone",
-      title: `${roleCap} Mobile Number`,
+      title: `${roleCap}'s Mobile Number`,
       type: "phone",
-      placeholder: `Enter ${role} mobile`,
+      placeholder: `Enter ${role}'s mobile`,
       required: false
     }
   ];

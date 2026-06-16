@@ -14,6 +14,7 @@ import { Step10 } from '../modules/registration/pages/Step10/Step10';
 import { Step11 } from '../modules/registration/pages/Step11/Step11';
 import { Step12 } from '../modules/registration/pages/Step12/Step12';
 import { Step13 } from '../modules/registration/pages/Step13/Step13';
+import { Step14 } from '../modules/registration/pages/Step14/Step14';
 import { STEP_IDS, getActiveFlow } from '../modules/registration/config/flowConfig';
 
 export function RegistrationFlow() {
@@ -51,6 +52,8 @@ export function RegistrationFlow() {
         return <Step12 onPrev={prevStep} onNext={nextStep} />;
       case STEP_IDS.PARTNER_LIFESTYLE:
         return <Step13 onPrev={prevStep} onNext={nextStep} />;
+      case STEP_IDS.PHOTO_UPLOAD:
+        return <Step14 onPrev={prevStep} onNext={nextStep} />;
       default:
         return null;
     }

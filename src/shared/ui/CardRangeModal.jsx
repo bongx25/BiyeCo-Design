@@ -129,7 +129,7 @@ export const CardRangeModal = ({
           }
         `}} />
 
-        <div className="w-full mt-10 pt-4 border-t border-[#CBA557]/20 flex justify-end">
+        <div className="w-full mt-10 pt-4 border-t border-[#CBA557]/20 flex justify-center">
           <button
             onClick={handleSave}
             className="px-8 py-3 rounded-full font-serif font-medium transition-all bg-[#4A3671] text-[#D6C5B3] hover:brightness-110 shadow-md"

@@ -25,7 +25,7 @@ export const Step3 = ({ onPrev, onNext, isManaged }) => {
               onPrev={onPrev} 
               questions={getStep3Questions(isManaged, role)} 
               titleHighlight="Where"
-              titleRest={isManaged ? `does the ${role} live?` : "do you live?"}
+              titleRest={isManaged ? `does the ${role}'s live?` : "do you live?"}
             />
           </RightSection>
         </div>

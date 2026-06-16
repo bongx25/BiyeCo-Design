@@ -24,6 +24,20 @@ export const Step9 = ({ onPrev, onNext }) => {
     return !!val;
   });
 
+  const isManaged = registrationData.profileFor && registrationData.profileFor !== 'myself';
+  const getCardTitle = (title) => isManaged ? `Candidate's\n${title.replace('\n', ' ')}` : title;
+
+  const getQuestionTitle = (title) => {
+    if (!isManaged) return title;
+    return title
+      .replace(/are you/gi, 'is the candidate')
+      .replace(/\byou\b/gi, 'the candidate')
+      .replace(/\byour\b/gi, "the candidate's")
+      .replace(/\byours\b/gi, "the candidate's");
+  };
+
+
+
   const activeCardConfig = activeModalId ? step9Config.cards.find(c => c.id === activeModalId) : null;
 
   return (
@@ -53,7 +67,7 @@ export const Step9 = ({ onPrev, onNext }) => {
                       <SelectCard
                         key={card.id}
                         icon={card.icon}
-                        title={card.title}
+                        title={getCardTitle(card.title)}
                         value={displayValue}
                         onClick={() => setActiveModalId(card.id)}
                       />
@@ -78,11 +92,11 @@ export const Step9 = ({ onPrev, onNext }) => {
           isOpen={!!activeModalId}
           onClose={() => setActiveModalId(null)}
           icon={activeCardConfig.icon}
-          title={activeCardConfig.title}
+          title={getCardTitle(activeCardConfig.title)}
           options={activeCardConfig.options}
           value={registrationData[activeCardConfig.id]}
           onChange={(val) => updateField(activeCardConfig.id, val)}
-          placeholder={`Select ${activeCardConfig.title.replace(/\n/g, ' ').toLowerCase()}`}
+          placeholder={`Select ${getCardTitle(activeCardConfig.title).replace(/\n/g, ' ').toLowerCase()}`}
           isMulti={activeCardConfig.isMulti}
         />
       )}
@@ -93,8 +107,11 @@ export const Step9 = ({ onPrev, onNext }) => {
           isOpen={!!activeModalId}
           onClose={() => setActiveModalId(null)}
           icon={activeCardConfig.icon}
-          title={activeCardConfig.title}
-          questions={activeCardConfig.questions}
+          title={getCardTitle(activeCardConfig.title)}
+          questions={activeCardConfig.questions.map(q => ({
+            ...q,
+            title: getQuestionTitle(q.title)
+          }))}
           value={registrationData[activeCardConfig.id]}
           onChange={(val) => updateField(activeCardConfig.id, val)}
         />

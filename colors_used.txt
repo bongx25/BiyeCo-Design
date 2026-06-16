@@ -1,0 +1,18 @@
+# BiyeCo Project Color Palette
+
+## Primary Theme Colors (from tailwind.config.js)
+- luxury-ivory: #fbf8f1
+- luxury-cream: #f4ede4
+- luxury-gold: #cba052
+- luxury-goldLight: #e5c98d
+- luxury-navy: #4A3671 (Main Purplish Brand Color)
+- luxury-charcoal: #334155
+- luxury-champagne: #f7f2eb
+
+## Additional UI Hex Colors (found in components)
+- Card Backgrounds: #FDFBF7
+- Modal Backgrounds: #F8F6F0
+- Card Borders & Dividers: #E8D9C8
+- Icon & Accent Highlights (Gold variations): #CBA557, #A67C00
+- Gradient Highlights & Secondary Purple: #6B4F9A
+- Button Gradient Text Colors: #D6C5B3, #FFF5EB

@@ -19,6 +19,10 @@ export const Step10 = ({ onPrev, onNext }) => {
     return !!val;
   });
 
+  const isManaged = registrationData.profileFor && registrationData.profileFor !== 'myself';
+  const getCardTitle = (title) => isManaged ? `Candidate's\n${title.replace('\n', ' ')}` : title;
+
+
   const activeCardConfig = activeModalId ? step10Config.cards.find(c => c.id === activeModalId) : null;
 
   return (
@@ -46,7 +50,7 @@ export const Step10 = ({ onPrev, onNext }) => {
                       <SelectCard
                         key={card.id}
                         icon={card.icon}
-                        title={card.title}
+                        title={getCardTitle(card.title)}
                         value={displayValue}
                         onClick={() => setActiveModalId(card.id)}
                       />
@@ -71,11 +75,11 @@ export const Step10 = ({ onPrev, onNext }) => {
           isOpen={!!activeModalId}
           onClose={() => setActiveModalId(null)}
           icon={activeCardConfig.icon}
-          title={activeCardConfig.title}
+          title={getCardTitle(activeCardConfig.title)}
           options={activeCardConfig.options}
           value={registrationData[activeCardConfig.id]}
           onChange={(val) => updateField(activeCardConfig.id, val)}
-          placeholder={`Select ${activeCardConfig.title.replace(/\n/g, ' ').toLowerCase()}`}
+          placeholder={`Select ${getCardTitle(activeCardConfig.title).replace(/\n/g, ' ').toLowerCase()}`}
           isMulti={activeCardConfig.isMulti}
         />
       )}

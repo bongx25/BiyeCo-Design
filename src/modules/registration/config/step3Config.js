@@ -5,7 +5,7 @@ export const getStep3Hero = (isManaged, role = 'candidate') => {
   return {
   eyebrow: "Let's Continue",
   titleLines: ["Your Perfect", "Match Starts Here"],
-  description: isManaged ? `Tell us where the ${role} lives.` : "Tell us where you live so we can personalize your experience.",
+  description: isManaged ? `Tell us where the ${role}'s lives.` : "Tell us where you live so we can personalize your experience.",
   buttonText: "CREATE YOUR PROFILE",
   verifiedText: "100% VERIFIED PROFILES",
   verifiedSubText: "SAFE & SECURE",

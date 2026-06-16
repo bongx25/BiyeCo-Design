@@ -78,7 +78,7 @@ export const CardFormModal = ({
         </div>
 
         {/* Save Button */}
-        <div className="w-full mt-4 pt-4 border-t border-[#CBA557]/20 flex justify-end">
+        <div className="w-full mt-4 pt-4 border-t border-[#CBA557]/20 flex justify-center">
           <button
             onClick={handleSave}
             disabled={!isFormComplete}

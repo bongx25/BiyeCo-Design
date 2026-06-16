@@ -7,11 +7,12 @@ export const HeroContent = ({ config }) => {
   return (
     <div className="flex flex-col w-full">
       <div className="w-full">
-        <h2 className="font-cursive text-[clamp(1.4rem,min(3.8vw,4.8vh),3rem)] text-luxury-gold mb-[-6px] ml-0 font-normal tracking-wide">
+        <h2 className="font-cursive text-[clamp(1.4rem,min(3.8vw,4.8vh),3rem)] text-luxury-gold mb-[-6px] ml-0 font-normal tracking-wide whitespace-nowrap">
           {eyebrow}
         </h2>
         <h1 className="font-serif text-[clamp(2.2rem,min(5.2vw,6.5vh),4.5rem)] leading-[1.05] text-luxury-navy font-semibold tracking-tight">
-          {titleLines[0]}<br />{titleLines[1]}
+          <span className="whitespace-nowrap">{titleLines[0]}</span>
+          {titleLines[1] && <><br /><span className="whitespace-nowrap">{titleLines[1]}</span></>}
         </h1>
 
         <div className="flex items-center gap-[clamp(4px,min(1vh,0.5vw),16px)] my-[clamp(0.2rem,min(1.5vh,1vw),1.5rem)] w-full">
