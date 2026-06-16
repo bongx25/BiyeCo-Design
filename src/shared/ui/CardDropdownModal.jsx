@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { X, ChevronUp, ChevronDown } from 'lucide-react';
 
-export const CardDropdownModal = ({ 
-  isOpen, 
-  onClose, 
-  icon: Icon, 
-  title, 
-  options = [], 
-  value, 
+export const CardDropdownModal = ({
+  isOpen,
+  onClose,
+  icon: Icon,
+  title,
+  options = [],
+  value,
   onChange,
   placeholder = "Select an option",
   isMulti = false
@@ -34,16 +34,16 @@ export const CardDropdownModal = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop overlay */}
-      <div 
-        className="absolute inset-0 bg-black/30 backdrop-blur-[2px] transition-opacity"
+      <div
+        className="absolute inset-0 bg-black/40 transition-opacity"
         onClick={onClose}
       />
-      
+
       {/* Modal Container */}
       <div className="relative w-full max-w-[400px] bg-[#F8F6F0] rounded-[24px] shadow-2xl flex flex-col items-center p-6 md:p-8 animate-in fade-in zoom-in-95 duration-200">
-        
+
         {/* Close Button */}
-        <button 
+        <button
           onClick={onClose}
           className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-[#A67C00] hover:bg-[#A67C00]/10 rounded-full transition-colors"
         >
@@ -67,9 +67,9 @@ export const CardDropdownModal = ({
 
         {/* Custom Dropdown List Container */}
         <div className="w-full bg-transparent border border-[#CBA557]/30 rounded-[12px] shadow-sm flex flex-col overflow-hidden">
-          
+
           {/* List Header / Trigger */}
-          <button 
+          <button
             onClick={() => setIsListOpen(!isListOpen)}
             className="w-full flex items-center justify-between px-4 py-3 bg-transparent border-b border-[#CBA557]/30 text-left hover:bg-[#CBA557]/5 transition-colors"
           >
@@ -90,7 +90,7 @@ export const CardDropdownModal = ({
               <div className="px-4 py-2.5 font-sans text-[13px] text-luxury-charcoal/50 bg-[#CBA557]/5 border-b border-[#CBA557]/20">
                 {placeholder}
               </div>
-              
+
               {options.map((opt) => {
                 const isSelected = isMulti ? (Array.isArray(value) && value.includes(opt)) : value === opt;
                 return (
@@ -110,11 +110,10 @@ export const CardDropdownModal = ({
                         onClose();
                       }
                     }}
-                    className={`w-full text-left px-4 py-2.5 font-sans text-[13px] md:text-[14px] transition-colors flex items-center justify-between ${
-                      isSelected 
-                        ? 'bg-[#CBA557]/15 text-[#A67C00] font-medium' 
+                    className={`w-full text-left px-4 py-2.5 font-sans text-[13px] md:text-[14px] transition-colors flex items-center justify-between ${isSelected
+                        ? 'bg-[#CBA557]/15 text-[#A67C00] font-medium'
                         : 'text-luxury-charcoal hover:bg-[#CBA557]/10'
-                    }`}
+                      }`}
                   >
                     <span>{opt}</span>
                     {isSelected && isMulti && (

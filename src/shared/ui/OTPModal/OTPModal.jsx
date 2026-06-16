@@ -4,12 +4,12 @@ import { X, CheckCircle2 } from 'lucide-react';
 import { Button } from '../Button';
 import { cn } from '../../utils';
 
-export const OTPModal = ({ 
-  isOpen, 
-  onClose, 
-  onVerify, 
+export const OTPModal = ({
+  isOpen,
+  onClose,
+  onVerify,
   method = 'email', // 'email' or 'whatsapp'
-  contactInfo = '' 
+  contactInfo = ''
 }) => {
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [timeLeft, setTimeLeft] = useState(90); // 1:30 in seconds
@@ -51,7 +51,7 @@ export const OTPModal = ({
   const handleChange = (index, e) => {
     const value = e.target.value;
     if (isNaN(value)) return; // Numeric only
-    
+
     const newOtp = [...otp];
     // Take only the last character if multiple are typed somehow
     newOtp[index] = value.substring(value.length - 1);
@@ -79,7 +79,7 @@ export const OTPModal = ({
       newOtp[i] = pastedData[i];
     }
     setOtp(newOtp);
-    
+
     // Focus next empty input or the last one
     const focusIndex = pastedData.length < 6 ? pastedData.length : 5;
     inputRefs.current[focusIndex].focus();
@@ -118,13 +118,13 @@ export const OTPModal = ({
     <AnimatePresence>
       {isOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/60"
           />
-          
+
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -132,7 +132,7 @@ export const OTPModal = ({
             transition={{ type: "spring", duration: 0.5, bounce: 0.3 }}
             className="relative w-full max-w-md bg-[#FCFBF8] rounded-3xl shadow-2xl overflow-hidden flex flex-col p-8"
           >
-            <button 
+            <button
               onClick={onClose}
               className="absolute top-4 right-4 p-2 rounded-full hover:bg-black/5 transition-colors text-luxury-charcoal"
             >
@@ -141,7 +141,7 @@ export const OTPModal = ({
 
             {isVerified ? (
               <div className="flex flex-col items-center justify-center text-center my-8">
-                <motion.div 
+                <motion.div
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ type: "spring", bounce: 0.5, duration: 0.6 }}
@@ -149,7 +149,7 @@ export const OTPModal = ({
                 >
                   <CheckCircle2 className="w-10 h-10 text-[#4A3671]" />
                 </motion.div>
-                <motion.h3 
+                <motion.h3
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
@@ -163,15 +163,15 @@ export const OTPModal = ({
                 <div className="w-16 h-16 rounded-full bg-luxury-ivory border border-luxury-gold/30 flex items-center justify-center mb-6 shadow-sm">
                   <CheckCircle2 className="w-8 h-8 text-luxury-gold" />
                 </div>
-                
+
                 <h3 className="font-serif text-2xl font-semibold text-[#4A3671] mb-2">
                   Verify Your {method === 'email' ? 'Email' : 'WhatsApp'}
                 </h3>
-                
+
                 <p className="font-sans text-luxury-charcoal/80 text-sm mb-1">
                   Enter the 6-digit verification code sent to your {method === 'email' ? 'email address' : 'WhatsApp number'}.
                 </p>
-                
+
                 <p className="font-sans font-medium text-[#4A3671] text-sm mb-8">
                   {contactInfo}
                 </p>
@@ -193,7 +193,7 @@ export const OTPModal = ({
                   ))}
                 </div>
 
-                <Button 
+                <Button
                   onClick={handleVerify}
                   disabled={!isFull || isVerifying}
                   className="w-full mb-6 py-3.5"
@@ -208,7 +208,7 @@ export const OTPModal = ({
                       Resend in {formatTime(timeLeft)}
                     </span>
                   ) : (
-                    <button 
+                    <button
                       onClick={handleResend}
                       className="text-[#CBA557] font-semibold hover:underline"
                     >

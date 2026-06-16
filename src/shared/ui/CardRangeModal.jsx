@@ -41,8 +41,8 @@ export const CardRangeModal = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/30 backdrop-blur-[2px] transition-opacity" onClick={onClose} />
-      
+      <div className="absolute inset-0 bg-black/40 transition-opacity" onClick={onClose} />
+
       <div className="relative w-full max-w-[400px] bg-[#F8F6F0] rounded-[24px] shadow-2xl flex flex-col items-center p-6 md:p-8 animate-in fade-in zoom-in-95 duration-200">
         <button onClick={onClose} className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-[#A67C00] hover:bg-[#A67C00]/10 rounded-full transition-colors">
           <X className="w-5 h-5" strokeWidth={2} />
@@ -74,12 +74,12 @@ export const CardRangeModal = ({
           {/* Background track */}
           <div className="absolute left-2 right-2 h-1.5 bg-[#E5DCC5] rounded-full" />
           {/* Active track */}
-          <div 
-            className="absolute h-1.5 bg-[#CBA557] rounded-full" 
+          <div
+            className="absolute h-1.5 bg-[#CBA557] rounded-full"
             style={{ left: `calc(0.5rem + ${percent1}% * 0.9)`, width: `calc(${percent2 - percent1}% * 0.9)` }}
           />
 
-          <input 
+          <input
             type="range"
             min={minBound}
             max={maxBound}
@@ -91,7 +91,7 @@ export const CardRangeModal = ({
             }}
             className="absolute left-0 right-0 h-1.5 w-full appearance-none pointer-events-none bg-transparent dual-slider z-10"
           />
-          <input 
+          <input
             type="range"
             min={minBound}
             max={maxBound}
@@ -105,7 +105,8 @@ export const CardRangeModal = ({
           />
         </div>
 
-        <style dangerouslySetInnerHTML={{__html: `
+        <style dangerouslySetInnerHTML={{
+          __html: `
           .dual-slider::-webkit-slider-thumb {
             pointer-events: auto;
             width: 20px;
