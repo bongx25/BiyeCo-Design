@@ -1,9 +1,9 @@
-import { Utensils, Activity, Flame, Coffee, Languages, Globe, ShieldCheck, Gem, Headphones, Users as UsersIcon } from 'lucide-react';
+import { IconToolsKitchen2 as Utensils, IconBarbell as Activity, IconSmoking as Flame, IconGlassFull as Coffee, IconMessages as Languages, IconWorld as Globe, IconShieldCheck as ShieldCheck, IconDiamond as Gem, IconHeadphones as Headphones, IconUsers as UsersIcon } from '@tabler/icons-react';
 
 export const step13Config = {
   hero: {
     eyebrow: "Partner Preferences",
-    titleLines: ["Lifestyle", "Compatibility"],
+    titleLines: ["Lifestyle and", "Compatibility"],
     description: "Tell us what you're looking for in a partner",
     buttonText: "CONTINUE",
     verifiedText: "100% VERIFIED PROFILES",

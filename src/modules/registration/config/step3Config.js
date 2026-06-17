@@ -1,4 +1,4 @@
-import { Users as UsersIcon, ShieldCheck, Gem, Headphones } from 'lucide-react';
+import { IconUsers as UsersIcon, IconShieldCheck as ShieldCheck, IconDiamond as Gem, IconHeadphones as Headphones } from '@tabler/icons-react';
 
 export const getStep3Hero = (isManaged, role = 'candidate') => {
   const roleCap = role.charAt(0).toUpperCase() + role.slice(1);

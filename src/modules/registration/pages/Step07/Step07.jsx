@@ -37,13 +37,13 @@ export const Step7 = ({ onPrev, onNext }) => {
           <LeftSection>
             <HeroSection config={dynamicHeroConfig} />
           </LeftSection>
-          
+
           <RightSection className="!pl-0 lg:!pl-4 xl:!pl-8">
             <div className="flex flex-col h-full overflow-hidden p-0 m-0">
-              <div className="flex flex-col w-full h-full max-w-[600px] mx-auto lg:mx-0 lg:ml-2 mt-2 lg:mt-4 gap-[clamp(0.5rem,min(1.5vh,1vw),1rem)] justify-between">
-                
+              <div className="flex flex-col w-full h-full max-w-[600px] 2xl:max-w-[850px] mx-auto lg:mx-0 lg:ml-2 mt-2 lg:mt-4 gap-[clamp(0.5rem,min(1.5vh,1vw),1rem)] 2xl:gap-[1.5rem] justify-between">
+
                 {/* Cards Grid */}
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-[clamp(0.5rem,1.5vw,1rem)] w-full">
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-[clamp(0.5rem,1.5vw,1rem)] 2xl:gap-[2rem] w-full">
                   {step7Config.cards.map((card) => (
                     <SelectCard
                       key={card.id}
@@ -55,12 +55,12 @@ export const Step7 = ({ onPrev, onNext }) => {
                   ))}
                 </div>
               </div>
-              
+
               {/* Bottom Navigation */}
               <div className="w-full shrink-0 flex justify-center lg:justify-start mt-auto pt-[clamp(0.5rem,min(2vh,2vw),1.5rem)] pb-2 lg:ml-8">
                 <StepNavigation onPrev={onPrev} onNext={onNext} hideNext={!isFormValid} />
               </div>
-              
+
             </div>
           </RightSection>
         </div>

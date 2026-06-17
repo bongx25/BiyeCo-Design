@@ -1,4 +1,4 @@
-import { Calendar, Ruler, User, UserCheck, Baby, PawPrint, ShieldCheck, Gem, Headphones, Users as UsersIcon } from 'lucide-react';
+import { IconCalendar as Calendar, IconRuler as Ruler, IconUser as User, IconUserCheck as UserCheck, IconBabyCarriage as Baby, IconPaw as PawPrint, IconShieldCheck as ShieldCheck, IconDiamond as Gem, IconHeadphones as Headphones, IconUsers as UsersIcon } from '@tabler/icons-react';
 
 export const step12Config = {
   hero: {
@@ -56,7 +56,7 @@ export const step12Config = {
     },
     {
       id: "prefChildren",
-      title: "Preferred\nChildren",
+      title: "Preferred\nChildren\nPreferences",
       icon: Baby,
       isMulti: true,
       options: ["Want children", "Don't want children", "Open to having children", "Not sure yet", "Any"]

@@ -61,8 +61,8 @@ export const PhotoUploadRenderer = ({ onNext, onPrev }) => {
             <div className="flex-1 flex flex-col items-center justify-center min-h-0">
               <CloudUpload className="w-16 h-16 xl:w-20 xl:h-20 text-[#A67C00]/50 mb-3 xl:mb-4" strokeWidth={1} />
               <h3 className="font-serif font-semibold text-lg xl:text-xl text-[#4A3671] mb-1">
-                Upload {(!registrationData.profileFor || registrationData.profileFor === 'myself') 
-                  ? 'Your' 
+                Upload {(!registrationData.profileFor || registrationData.profileFor === 'myself')
+                  ? 'Your'
                   : (registrationData.role === 'bride' ? "Groom's" : registrationData.role === 'groom' ? "Bride's" : "Candidate's")} Photo
               </h3>
               <p className="font-serif text-xs xl:text-sm text-[#4A3671]/80 mb-5 xl:mb-6">Profiles with photos receive 5x more responses</p>

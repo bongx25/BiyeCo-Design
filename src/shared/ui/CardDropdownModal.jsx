@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { X, ChevronUp, ChevronDown } from 'lucide-react';
 
 export const CardDropdownModal = ({
@@ -13,11 +13,37 @@ export const CardDropdownModal = ({
   isMulti = false
 }) => {
   const [isListOpen, setIsListOpen] = useState(true);
+  const [focusedIndex, setFocusedIndex] = useState(-1);
+  const listRef = useRef(null);
+
+  const scrollToIndex = (index) => {
+    if (!listRef.current) return;
+    const optionElement = listRef.current.children[index + 1]; // +1 because of placeholder
+    if (optionElement) {
+      optionElement.scrollIntoView({ block: 'nearest' });
+    }
+  };
+
+  const handleOptionSelect = (opt) => {
+    if (isMulti) {
+      let newValue = Array.isArray(value) ? [...value] : [];
+      if (newValue.includes(opt)) {
+        newValue = newValue.filter(v => v !== opt);
+      } else {
+        newValue.push(opt);
+      }
+      onChange(newValue);
+    } else {
+      onChange(opt);
+      onClose();
+    }
+  };
 
   // Prevent background scrolling when modal is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+      setFocusedIndex(-1); // Reset focus when opened
     } else {
       document.body.style.overflow = 'unset';
     }
@@ -65,13 +91,52 @@ export const CardDropdownModal = ({
           Select your {subtitleLabel}
         </p>
 
+        {/* Keyboard navigation effect */}
+        {(() => {
+          useEffect(() => {
+            if (!isOpen || !isListOpen) return;
+
+            const handleKeyDown = (e) => {
+              if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                setFocusedIndex(prev => {
+                  const next = prev < options.length - 1 ? prev + 1 : prev;
+                  scrollToIndex(next);
+                  return next;
+                });
+              } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                setFocusedIndex(prev => {
+                  const next = prev > 0 ? prev - 1 : prev;
+                  scrollToIndex(next);
+                  return next;
+                });
+              } else if (e.key === 'Enter') {
+                e.preventDefault();
+                if (focusedIndex >= 0 && focusedIndex < options.length) {
+                  const opt = options[focusedIndex];
+                  handleOptionSelect(opt);
+                }
+              } else if (e.key === 'Escape') {
+                onClose();
+              }
+            };
+
+            window.addEventListener('keydown', handleKeyDown);
+            return () => window.removeEventListener('keydown', handleKeyDown);
+          }, [isOpen, isListOpen, options, focusedIndex, value, isMulti, onChange, onClose]);
+
+          return null;
+        })()}
+
         {/* Custom Dropdown List Container */}
         <div className="w-full bg-transparent border border-[#CBA557]/30 rounded-[12px] shadow-sm flex flex-col overflow-hidden">
 
           {/* List Header / Trigger */}
           <button
             onClick={() => setIsListOpen(!isListOpen)}
-            className="w-full flex items-center justify-between px-4 py-3 bg-transparent border-b border-[#CBA557]/30 text-left hover:bg-[#CBA557]/5 transition-colors"
+            style={{ WebkitTapHighlightColor: 'transparent' }}
+            className="w-full flex items-center justify-between px-4 py-3 bg-transparent border-b border-[#CBA557]/30 text-left hover:bg-[#CBA557]/5 transition-colors outline-none focus:outline-none focus-visible:outline-none focus:ring-0 active:outline-none"
           >
             <span className="font-sans text-[14px] text-luxury-charcoal/90 font-medium">
               {placeholder}
@@ -85,35 +150,33 @@ export const CardDropdownModal = ({
 
           {/* Options List */}
           {isListOpen && (
-            <div className="flex flex-col max-h-[250px] overflow-y-auto custom-scrollbar">
+            <div ref={listRef} className="flex flex-col max-h-[250px] overflow-y-auto custom-scrollbar outline-none" tabIndex={-1}>
               {/* Optional: repeat placeholder as an unselectable first option if matching image */}
               <div className="px-4 py-2.5 font-sans text-[13px] text-luxury-charcoal/50 bg-[#CBA557]/5 border-b border-[#CBA557]/20">
                 {placeholder}
               </div>
 
-              {options.map((opt) => {
+              {options.map((opt, index) => {
                 const isSelected = isMulti ? (Array.isArray(value) && value.includes(opt)) : value === opt;
                 return (
                   <button
                     key={opt}
-                    onClick={() => {
-                      if (isMulti) {
-                        let newValue = Array.isArray(value) ? [...value] : [];
-                        if (newValue.includes(opt)) {
-                          newValue = newValue.filter(v => v !== opt);
-                        } else {
-                          newValue.push(opt);
-                        }
-                        onChange(newValue);
-                      } else {
-                        onChange(opt);
-                        onClose();
-                      }
-                    }}
-                    className={`w-full text-left px-4 py-2.5 font-sans text-[13px] md:text-[14px] transition-colors flex items-center justify-between ${isSelected
+                    style={{ WebkitTapHighlightColor: 'transparent' }}
+                    onMouseEnter={() => setFocusedIndex(index)}
+                    onClick={() => handleOptionSelect(opt)}
+                    className={`w-full text-left px-4 py-2.5 font-sans text-[13px] md:text-[14px] transition-colors flex items-center justify-between outline-none focus:outline-none focus-visible:outline-none active:outline-none ${
+                      isSelected
                         ? 'bg-[#CBA557]/15 text-[#A67C00] font-medium'
                         : 'text-luxury-charcoal hover:bg-[#CBA557]/10'
-                      }`}
+                    } ${
+                      focusedIndex === index && !isSelected
+                        ? 'bg-[#CBA557]/25 text-[#A67C00] font-medium'
+                        : ''
+                    } ${
+                      focusedIndex === index && isSelected
+                        ? 'ring-2 ring-inset ring-[#CBA557]/80'
+                        : 'focus:ring-0'
+                    }`}
                   >
                     <span>{opt}</span>
                     {isSelected && isMulti && (

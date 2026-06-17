@@ -1,4 +1,4 @@
-import { Utensils, Activity, Cigarette, Wine, Gamepad2, FileText, ShieldCheck, Gem, Headphones, Users as UsersIcon } from 'lucide-react';
+import { IconToolsKitchen2 as Utensils, IconBarbell as Activity, IconSmoking as Cigarette, IconGlassFull as Wine, IconDeviceGamepad2 as Gamepad2, IconFileText as FileText, IconShieldCheck as ShieldCheck, IconDiamond as Gem, IconHeadphones as Headphones, IconUsers as UsersIcon } from '@tabler/icons-react';
 
 export const step9Config = {
   hero: {

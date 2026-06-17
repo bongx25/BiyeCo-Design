@@ -1,4 +1,4 @@
-import { User, Users as UsersIcon, Gift, Mars, Venus, ShieldCheck, Gem, Headphones } from 'lucide-react';
+import { IconUser as User, IconUsers as UsersIcon, IconGift as Gift, IconGenderMale as Mars, IconGenderFemale as Venus, IconShieldCheck as ShieldCheck, IconDiamond as Gem, IconHeadphones as Headphones } from '@tabler/icons-react';
 
 export const groomOptions = [
   { id: 'myself', label: 'Myself', icon: User },

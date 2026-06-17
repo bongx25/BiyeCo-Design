@@ -1,4 +1,4 @@
-import { Home, Users, MapPin, Map, Baby, PawPrint, ShieldCheck, Gem, Headphones, Users as UsersIcon } from 'lucide-react';
+import { IconHome as Home, IconUsers as Users, IconMapPin as MapPin, IconMap as Map, IconBabyCarriage as Baby, IconPaw as PawPrint, IconShieldCheck as ShieldCheck, IconDiamond as Gem, IconHeadphones as Headphones, IconUsers as UsersIcon } from '@tabler/icons-react';
 
 export const step10Config = {
   hero: {

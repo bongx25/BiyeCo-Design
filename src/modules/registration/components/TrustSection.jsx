@@ -23,11 +23,11 @@ export const TrustSection = ({ config }) => {
 
       <div className="space-y-[clamp(2px,min(1vh,0.5vw),8px)] max-w-full overflow-hidden">
         {trustItems.map(item => (
-          <FeatureItem 
-            key={item.id} 
-            icon={item.icon} 
-            title={item.title} 
-            subtitle={item.subtitle} 
+          <FeatureItem
+            key={item.id}
+            icon={item.icon}
+            title={item.title}
+            subtitle={item.subtitle}
           />
         ))}
       </div>

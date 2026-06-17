@@ -1,4 +1,4 @@
-import { GraduationCap, Briefcase, Contact, Heart, MapPin, Home, ShieldCheck, Gem, Headphones, Users as UsersIcon } from 'lucide-react';
+import { IconSchool as GraduationCap, IconBriefcase as Briefcase, IconAddressBook as Contact, IconPray as Heart, IconMapPin as MapPin, IconHome as Home, IconShieldCheck as ShieldCheck, IconDiamond as Gem, IconHeadphones as Headphones, IconUsers as UsersIcon } from '@tabler/icons-react';
 
 export const step11Config = {
   hero: {

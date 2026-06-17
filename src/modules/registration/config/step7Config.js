@@ -1,4 +1,4 @@
-import { Briefcase, Contact, GraduationCap, BookOpen, User, Users as UsersIcon, ShieldCheck, Gem, Headphones } from 'lucide-react';
+import { IconBriefcase as Briefcase, IconAddressBook as Contact, IconSchool as GraduationCap, IconBook as BookOpen, IconUser as User, IconMan as FatherIcon, IconWoman as MotherIcon, IconUsers as UsersIcon, IconShieldCheck as ShieldCheck, IconDiamond as Gem, IconHeadphones as Headphones } from '@tabler/icons-react';
 
 export const step7Config = {
   hero: {
@@ -43,13 +43,13 @@ export const step7Config = {
     {
       id: "fatherProfession",
       title: "Father's\nProfession",
-      icon: User,
+      icon: FatherIcon,
       options: ["Business", "Service", "Retired", "Not Employed", "Other"]
     },
     {
       id: "motherProfession",
       title: "Mother's\nProfession",
-      icon: User,
+      icon: MotherIcon,
       options: ["Homemaker", "Business", "Service", "Retired", "Other"]
     }
   ]

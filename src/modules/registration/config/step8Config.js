@@ -1,4 +1,4 @@
-import { Ruler, Scale, User, Heart, Globe, UserCheck, ShieldCheck, Gem, Headphones, Users as UsersIcon } from 'lucide-react';
+import { IconRuler as Ruler, IconWeight as Scale, IconUser as User, IconPray as Heart, IconMessages as Globe, IconUserCheck as UserCheck, IconShieldCheck as ShieldCheck, IconDiamond as Gem, IconHeadphones as Headphones, IconUsers as UsersIcon } from '@tabler/icons-react';
 
 export const step8Config = {
   hero: {
